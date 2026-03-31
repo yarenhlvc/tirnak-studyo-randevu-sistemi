@@ -1,0 +1,258 @@
+:root {
+    --navy: #010b13;
+    --navy-glow: #021a30;
+    --gold: #c5a059;
+    --gold-shimmer: #f9e2af;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--navy);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+
+/* YATAY YAYILIMI SAĞLAYAN KONTEYNER */
+.wide-container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* HEADER - YATAY YAYILIM */
+header {
+    padding: 25px 0;
+    border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+    background: rgba(1, 11, 19, 0.95);
+    position: sticky; top: 0; z-index: 1000;
+}
+
+.nav-flex { display: flex; justify-content: space-between; align-items: center; }
+
+.logo { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--gold); letter-spacing: 2px; }
+
+.logo span { font-size: 10px; display: block; color: #666; letter-spacing: 5px; }
+
+nav a { color: #fff; text-decoration: none; margin-left: 30px; font-size: 13px; letter-spacing: 1px; }
+
+.gold-cta { background: var(--gold); color: #000 !important; padding: 10px 22px; border-radius: 20px; font-weight: 600; }
+
+/* HERO BÖLÜMÜ - GÖRSELDEKİ GİBİ GENİŞ */
+.hero-wide {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    background: radial-gradient(circle at 80% 20%, var(--navy-glow) 0%, transparent 60%);
+}
+
+.hero-image {
+    position: absolute; right: 0; top: 0; width: 60%; height: 100%;
+    background: linear-gradient(to right, var(--navy) 15%, transparent 50%),
+                url('foto.jpeg');
+    background-size: cover; background-position: center;
+    clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.hero-content-wrapper { width: 100%; z-index: 2; }
+
+.hero-text h2 { font-family: 'Playfair Display', serif; font-size: clamp(35px, 5vw, 65px); line-height: 1.1; }
+
+.gold-italic { font-style: italic; color: var(--gold); font-weight: 400; }
+
+.hero-text p { margin: 25px 0; color: #8e9ba5; font-size: 18px; font-weight: 200; }
+
+.shimmer-btn {
+    display: inline-block; padding: 18px 45px;
+    background: linear-gradient(45deg, var(--gold), var(--gold-shimmer), var(--gold));
+    background-size: 200% auto;
+    color: #000; text-decoration: none; font-weight: bold; border-radius: 35px;
+    box-shadow: 0 10px 30px rgba(197, 160, 89, 0.4);
+    animation: shine 3s infinite linear;
+}
+
+@keyframes shine { to { background-position: 200% center; } }
+
+/* HİZMETLER - YATAY DİZİLİM */
+.services { padding: 100px 0; }
+
+.section-title { font-family: 'Playfair Display', serif; font-size: 30px; color: var(--gold); text-align: center; margin-bottom: 60px; }
+
+.service-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+.s-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(197, 160, 89, 0.1);
+    padding: 40px 10px; text-align: center; transition: 0.3s;
+}
+
+.s-card:hover { border-color: var(--gold); background: rgba(197, 160, 89, 0.05); transform: translateY(-5px); }
+
+.s-icon { font-size: 40px; margin-bottom: 15px; }
+
+/* KONUM - YATAY YAYILIM */
+.location { padding: 80px 0; background: rgba(0,0,0,0.1); }
+
+.loc-flex { display: flex; align-items: center; gap: 60px; }
+
+.loc-info { flex: 1; }
+
+.map-box { flex: 1.5; height: 350px; border: 1px solid var(--gold); border-radius: 10px; }
+
+.map-placeholder { height: 100%; display: flex; align-items: center; justify-content: center; color: var(--gold); font-style: italic; }
+
+/* FOOTER */
+.footer-wrap { display: flex; justify-content: space-between; padding: 50px 0; border-top: 1px solid rgba(255,255,255,0.05); color: #555; font-size: 12px; }
+
+/* --- Başarı Mesajı Kutusu (style.css'in en altına ekle) --- */
+.success-alert {
+    background: linear-gradient(135, #0a141d 0%, #050a0f 100%);
+    border: 1px solid #c5a059;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 800px;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.success-alert span { 
+    color: #c5a059; 
+    font-weight: bold; 
+}
+
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(-10px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+/* Takvim Kutusu Renkleri */
+.flatpickr-calendar {
+    background: #0a141d !important; /* Lacivert arka plan */
+    border: 1px solid #c5a059 !important; /* Altın çerçeve */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.flatpickr-day.selected {
+    background: #c5a059 !important; /* Seçili gün altın rengi */
+    border-color: #c5a059 !important;
+}
+.flatpickr-months .flatpickr-month {
+    color: #c5a059 !important; /* Ay ismi altın rengi */
+}
+/* Saat ve Takvim kutularının inputun tam altında çıkmasını garanti eder */
+.flatpickr-calendar.static {
+    top: 100% !important;
+    left: 0 !important;
+    position: absolute !important;
+    display: block;
+}
+
+.form-group {
+    position: relative; /* Bu çok önemli! Kutular buna göre hizalanır */
+}
+/* Hata Mesajı Kutusu */
+.error-alert {
+    background: #721c24; /* Koyu kırmızı */
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    border: 1px solid #f5c6cb;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(-10px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+/* --- Gelişmiş Yaldızlı ve Parlak Logo Stilleri --- */
+
+.premium-logo {
+    text-decoration: none; /* Link alt çizgisini kaldırır */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+/* Üzerine gelince logo hafifçe büyüsün */
+.premium-logo:hover {
+    transform: scale(1.05);
+}
+
+/* Yıldız İkonu - Hafifçe parlar ve döner */
+.premium-logo .logo-sparkle {
+    font-size: 32px;
+    color: white;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    animation: sparklePulse 2s ease-in-out infinite;
+}
+
+/* Yazı Alanı - STAR ve NAIL STUDIO alt alta */
+.premium-logo .logo-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+/* "STAR" - Büyük, Yaldızlı ve Parlayan Yazı */
+.premium-logo .brand-star {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 36px;
+    letter-spacing: 4px;
+    line-height: 1;
+
+    /* --- SİHİRLİ ALTIN VE PARLAMA EFEKTİ --- */
+    background-image: linear-gradient(
+        -45deg,
+        #bf953f 30%, /* Koyu Altın */
+        #fcf6ba 50%, /* Parlak Işık */
+        #b38728 70%  /* Derin Altın */
+    );
+    background-size: 200% auto; /* Animasyon için gerekli */
+    
+    /* Yazının arka planını kesip sadece yazıyı boyar */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; /* Yazının asıl rengini şeffaf yapar */
+    
+    /* Kabartma gölge */
+    text-shadow: 0px 2px 4px rgba(0,0,0,0.5);
+    
+    /* Işık süzülmesi animasyonu */
+    animation: goldenShimmer 4s linear infinite;
+}
+
+/* "NAIL STUDIO" - Daha küçük ve zarif */
+.premium-logo .brand-studio {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.7); /* Hafif soluk beyaz */
+    margin-top: -3px;
+    background: none; /* Kesme işlemini iptal eder */
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    text-shadow: none;
+}
+
+/* --- Animasyon Tanımları (Keyframes) --- */
+
+/* 1. Işık Süzülmesi: Altın gradyanı kaydırır */
+@keyframes goldenShimmer {
+    to { background-position: 200% center; }
+}
+
+/* 2. Yıldız Parıltısı: Hafifçe büyüyüp küçülür */
+@keyframes sparklePulse {
+    0%, 100% { transform: scale(1); opacity: 1; text-shadow: 0 0 15px rgba(255,255,255,1); }
+    50% { transform: scale(1.1); opacity: 0.8; text-shadow: 0 0 30px rgba(197, 160, 89, 1); }
+}
