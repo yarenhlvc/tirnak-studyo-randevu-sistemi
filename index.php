@@ -3,6 +3,29 @@ include 'baglan.php';
 include 'header.php'; 
 ?>
 
+<?php if(isset($_GET['durum']) && $_GET['durum'] == 'basarili'): ?>
+    <div id="success-alert">
+        ✨ <span>Randevunuz Işıltıyla Oluşturuldu!</span>
+    </div>
+    
+    <script>
+        // Sayfa yüklendikten sonra mesajı göster ve 4 saniye sonra kaldır
+        window.addEventListener('load', function() {
+            var alert = document.getElementById('success-alert');
+            
+            // Mesajı sağdan kaydırarak getir
+            setTimeout(function() {
+                alert.classList.add('show');
+            }, 100); 
+
+            // 4 saniye sonra mesajı sağa kaydırarak gizle
+            setTimeout(function() {
+                alert.classList.remove('show');
+            }, 4000); 
+        });
+    </script>
+<?php endif; ?>
+
 <main>
     <section class="hero-wide">
         <div class="hero-image"></div>

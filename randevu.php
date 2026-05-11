@@ -1,8 +1,15 @@
 <?php 
+session_start(); // OTURUMU BAŞLATTIK
+
+// EĞER KULLANICI GİRİŞ YAPMAMIŞSA, ONU GİRİŞ SAYFASINA KOVUYORUZ!
+if (!isset($_SESSION['kullanici_id'])) {
+    header("Location: giris.php?durum=izinsiz");
+    exit;
+}
+
 include 'baglan.php'; 
 $hizmetler = $db->query("SELECT * FROM hizmetler")->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -15,11 +22,7 @@ $hizmetler = $db->query("SELECT * FROM hizmetler")->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
     
     <link rel="stylesheet" href="style.css"> 
- <?php if(isset($_GET['durum']) && $_GET['durum'] == 'dolu'): ?>
-    <div class="error-alert">
-        ⚠️ Üzgünüz, seçtiğiniz saat aralığı başka bir randevu ile çakışıyor. Lütfen başka bir saat seçiniz.
-    </div>
-<?php endif; ?>
+    
     <style>
         .appointment-form {
             max-width: 600px;
@@ -41,6 +44,15 @@ $hizmetler = $db->query("SELECT * FROM hizmetler")->fetchAll(PDO::FETCH_ASSOC);
         }
         input:focus { border-color: #c5a059; outline: none; }
         .flatpickr-calendar { background: #0a141d !important; border: 1px solid #c5a059 !important; }
+        
+        /* Hata mesajları için şık bir tasarım ekledik */
+        .error-alert {
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            text-align: center;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -58,6 +70,27 @@ $hizmetler = $db->query("SELECT * FROM hizmetler")->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="wide-container">
         <div class="appointment-form">
+            
+            <?php if(isset($_GET['durum'])): ?>
+                <?php if($_GET['durum'] == 'dolu'): ?>
+                    <div class="error-alert" style="background: #ff4d4d; color: white;">
+                        ⚠️ Üzgünüz, seçtiğiniz saat dolu. Lütfen farklı bir saat seçiniz.
+                    </div>
+                <?php elseif($_GET['durum'] == 'gecmis'): ?>
+                    <div class="error-alert" style="background: #ff4d4d; color: white;">
+                        ⚠️ Zaman makinesi icat edilmedi! Geçmiş bir saate randevu alamazsınız.
+                    </div>
+                <?php elseif($_GET['durum'] == 'pazar'): ?>
+                    <div class="error-alert" style="background: #ffcc00; color: black;">
+                        ⚠️ Pazar günleri kapalıyız. Lütfen başka bir gün seçiniz.
+                    </div>
+                <?php elseif($_GET['durum'] == 'mesai'): ?>
+                    <div class="error-alert" style="background: #ffcc00; color: black;">
+                        ⚠️ Randevularımız sadece 09:00 - 18:00 saatleri arasındadır.
+                    </div>
+                <?php endif; ?>
+            <?php endif; ?>
+
             <h2 style="font-family: 'Playfair Display', serif; color: white; margin-bottom: 30px; text-align: center;">
                 Işıltını <span style="color: #c5a059; font-style: italic;">Planla</span>
             </h2>
@@ -65,7 +98,7 @@ $hizmetler = $db->query("SELECT * FROM hizmetler")->fetchAll(PDO::FETCH_ASSOC);
             <form action="islem.php" method="POST">
                 <div class="form-group">
                     <label>Adınız ve Soyadınız</label>
-                    <input type="text" name="ad_soyad" placeholder="Örn: Yaren Yıldız" required>
+                    <input type="text" name="ad_soyad" placeholder="Örn: Yaren ..." required>
                 </div>
 
                 <div class="form-group">
@@ -121,12 +154,11 @@ $hizmetler = $db->query("SELECT * FROM hizmetler")->fetchAll(PDO::FETCH_ASSOC);
         static: true, 
         disableMobile: "true",
         minTime: "09:00",
-        maxTime: "20:00",
+        maxTime: "18:00", // Burayı 20:00'dan 18:00'a düşürdük!
     });
 </script>
 <script>
     window.addEventListener('load', function() {
-        // Hem başarı hem hata mesajlarını yakalayalım
         var mesaj = document.querySelector('.error-alert');
         
         if (mesaj) {
@@ -137,7 +169,7 @@ $hizmetler = $db->query("SELECT * FROM hizmetler")->fetchAll(PDO::FETCH_ASSOC);
                 setTimeout(function() {
                     mesaj.remove();
                 }, 1000);
-            }, 4000); // Hata mesajları biraz daha uzun kalsın (4 saniye)
+            }, 4000); 
         }
     });
 </script>

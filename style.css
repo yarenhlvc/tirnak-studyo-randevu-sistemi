@@ -256,3 +256,62 @@ nav a { color: #fff; text-decoration: none; margin-left: 30px; font-size: 13px; 
     0%, 100% { transform: scale(1); opacity: 1; text-shadow: 0 0 15px rgba(255,255,255,1); }
     50% { transform: scale(1.1); opacity: 0.8; text-shadow: 0 0 30px rgba(197, 160, 89, 1); }
 }
+/* =========================================
+   MOBİL EKRANLAR İÇİN KUSURSUZ UYUM SİSTEMİ
+   ========================================= */
+@media screen and (max-width: 768px) {
+    /* Genel kaplama alanını telefona göre ayarla */
+    .wide-container {
+        width: 95% !important; /* Ekranı biraz daha doldursun */
+        padding: 10px 0 !important;
+    }
+
+    /* --- ÜST MENÜ (HEADER) --- */
+    .nav-flex {
+        flex-direction: column; /* Logoyu ve menüyü alt alta al */
+        gap: 20px;
+        text-align: center;
+    }
+    nav a {
+        display: block; /* Menü linklerini alt alta dizer */
+        margin: 10px 0 !important;
+        font-size: 16px !important; /* Telefonda tıklaması kolay olsun */
+    }
+    .gold-cta {
+        display: block;
+        margin-top: 15px;
+    }
+
+    /* --- HERO BÖLÜMÜ (ANA EKRAN) --- */
+    .hero-wide {
+        height: auto !important;
+        padding: 50px 0;
+        text-align: center; /* Yazıları ortala */
+    }
+    .hero-image {
+        display: none; /* Mobilde arka plan resmi çok karmaşık duracağı için gizliyoruz */
+    }
+    .hero-text h2 {
+        font-size: 38px !important; /* Yazı fontunu telefona göre küçült */
+    }
+
+    /* --- HİZMET KUTULARI (4 YERİNE 1 SÜTUN) --- */
+    .service-grid {
+        grid-template-columns: 1fr !important; /* Kutuları yan yana değil, alt alta dizer */
+        gap: 20px;
+    }
+
+    /* --- KONUM HARİTASI --- */
+    .loc-flex {
+        flex-direction: column; /* Metin ve haritayı alt alta al */
+        text-align: center;
+        gap: 30px !important;
+    }
+
+    /* --- FOOTER (ALT BİLGİ) --- */
+    .footer-wrap {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+}
